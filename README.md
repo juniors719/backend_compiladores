@@ -47,10 +47,10 @@ O projeto foi desenvolvido em **Python** e **não requer bibliotecas externas**.
 
    ```bash
    # Executa a Análise de Longevidade
-   python3 longevidade/longevidade.py
+   python longevidade.py
 
    # Executa a Análise de Definições Alcançantes
-   python3 reaching_definitions/reaching_definitions.py
+   python reaching_definitions.py
 
    # Executa a Análise de Expressões Disponíveis
-   python3 expressoes_disponiveis/expressoes_disponiveis.
+   python expressoes_disponiveis.py

@@ -108,22 +108,17 @@ def formatar_saida(blocos):
     return "\n".join(linhas_saida)
 
 def main():
-    PASTA_ENTRADA = "../in"
+    PASTA_ENTRADA = "in"
     PASTA_SAIDA = "out"
-
     if not os.path.isdir(PASTA_ENTRADA):
-        print(f"Erro: A pasta de entrada '{PASTA_ENTRADA}' não foi encontrada.")
-        print(f"Por favor, crie a pasta '{PASTA_ENTRADA}' e coloque os ficheiros de teste (ex: 1.txt, 2.txt) dentro dela.")
+        print(f"Erro: Pasta '{PASTA_ENTRADA}' não encontrada.")
         return
-
     os.makedirs(PASTA_SAIDA, exist_ok=True)
 
-    print(f"A ler ficheiros da pasta '{PASTA_ENTRADA}'...")
     for nome_ficheiro in os.listdir(PASTA_ENTRADA):
         caminho_entrada = os.path.join(PASTA_ENTRADA, nome_ficheiro)
-        caminho_saida = os.path.join(PASTA_SAIDA, nome_ficheiro)
-
-        print(f"A processar '{caminho_entrada}'...")
+        nome_saida = os.path.splitext(nome_ficheiro)[0] + "_al.txt"
+        caminho_saida = os.path.join(PASTA_SAIDA, nome_saida)
 
         with open(caminho_entrada, 'r', encoding='utf-8') as f:
             dados_entrada = f.read()
@@ -132,12 +127,18 @@ def main():
         for num_bloco in blocos:
             calcular_use_def(blocos[num_bloco])
         analisar_longevidade(blocos)
-        conteudo_saida = formatar_saida(blocos)
 
         with open(caminho_saida, 'w', encoding='utf-8') as f:
-            f.write(conteudo_saida)
-            print(f" -> Resultado salvo em '{caminho_saida}'")
-    print("\nProcessamento concluído com sucesso!")
+            f.write("Resultado da Análise de Longevidade:\n")
+            for num_bloco in sorted(blocos.keys()):
+                bloco = blocos[num_bloco]
+                in_formatado = sorted(bloco.in_set)
+                out_formatado = sorted(bloco.out_set)
+                f.write(f"IN[{bloco.numero}] = {in_formatado}\n")
+                f.write(f"OUT[{bloco.numero}] = {out_formatado}\n")
+                f.write("--------------------\n")
+
+        print(f"Análise de '{caminho_entrada}' salva em '{caminho_saida}'")
 
 if __name__ == "__main__":
     main()

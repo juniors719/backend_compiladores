@@ -104,7 +104,7 @@ def ler_entrada_e_construir_grafo(dados_entrada):
     return blocos
 
 def main():
-    PASTA_ENTRADA = os.path.join("..", "in")
+    PASTA_ENTRADA = "in"
     PASTA_SAIDA = "out"
     if not os.path.isdir(PASTA_ENTRADA):
         print(f"Erro: Pasta '{PASTA_ENTRADA}' não encontrada."); return
